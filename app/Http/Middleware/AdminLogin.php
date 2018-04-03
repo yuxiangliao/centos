@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class CheckToken
+class AdminLogin
 {
     /**
      * Handle an incoming request.
@@ -13,11 +13,11 @@ class CheckToken
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next,$param1)
+    public function handle($request, Closure $next)
     {
-	if($request->input('token')!='123456' && $param1=='123'){
-		return redirect()->to('http://www.baidu.com');
-	}
+        if(!session('user')){
+            return redirect('admin/login');
+        }
         return $next($request);
     }
 }
